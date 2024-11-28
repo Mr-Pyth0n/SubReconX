@@ -86,34 +86,17 @@ def passive_enum_shodan(domain):
     print(Fore.CYAN + "[*] Enumerating subdomains via Shodan..." + Style.RESET_ALL)
     url = f"https://api.shodan.io/dns/domain/{domain}?key={SHODAN_API_KEY}"
     subdomains = []
-
     try:
-        # Make the API request
         response = requests.get(url)
-        
-        # Handle the response
         if response.status_code == 200:
             data = response.json()
-            subdomains = [
-                f"{sub['subdomain']}.{domain}" for sub in data.get("subdomains", [])
-            ]
+            subdomains = [sub["subdomain"] + f".{domain}" for sub in data.get("subdomains", [])]
             print(Fore.GREEN + f"[+] Shodan found {len(subdomains)} subdomains." + Style.RESET_ALL)
-        
-        elif response.status_code == 403:
-            print(Fore.RED + "[!] Shodan API error: Unauthorized or invalid API key." + Style.RESET_ALL)
-        
-        elif response.status_code == 429:
-            print(Fore.RED + "[!] Shodan API error: Rate limit exceeded." + Style.RESET_ALL)
-        
         else:
-            print(Fore.RED + f"[!] Shodan API error: {response.status_code} - {response.text}" + Style.RESET_ALL)
-
-    except requests.exceptions.RequestException as e:
+            print(Fore.RED + f"[!] Shodan API error: {response.status_code}" + Style.RESET_ALL)
+    except Exception as e:
         print(Fore.RED + f"[!] Error connecting to Shodan: {e}" + Style.RESET_ALL)
-    except ValueError:
-        print(Fore.RED + "[!] Error parsing Shodan response. Please check the API key and response format." + Style.RESET_ALL)
-    
-    return subdomains  # Always return an empty list on failure
+    return subdomains
 
 # CertSpotter API
 def passive_enum_certspotter(domain):
