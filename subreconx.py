@@ -13,14 +13,14 @@ init(autoreset=True)
 VIRUSTOTAL_API_KEY = "your_virustotal_api_key"
 SECURITYTRAILS_API_KEY = "your_securitytrails_api_key"
 SHODAN_API_KEY = "your_shodan_api_key"
-CERTSPOTTER_API_KEY = "your_certspotter_api_key"
+CERTSPOTTER_API_KEY = "your_certs"
 
 # Tools to check
 TOOLS = {
     "amass": "apt-get install amass -y",
     "subfinder": "apt-get install subfinder -y",
     "assetfinder": "go install github.com/tomnomnom/assetfinder@latest",
-    "subzy": "go install github.com/PentestPad/subzy@latest"
+    "subzy": "go install github.com/LukaSikic/subzy@latest"
 }
 
 # Banner using pyfiglet
@@ -90,8 +90,11 @@ def passive_enum_shodan(domain):
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
-            subdomains = [sub["subdomain"] + f".{domain}" for sub in data.get("subdomains", [])]
-            print(Fore.GREEN + f"[+] Shodan found {len(subdomains)} subdomains." + Style.RESET_ALL)
+            if "subdomains" in data:
+                subdomains = [f"{sub}.{domain}" for sub in data["subdomains"]]
+                print(Fore.GREEN + f"[+] Shodan found {len(subdomains)} subdomains." + Style.RESET_ALL)
+            else:
+                print(Fore.YELLOW + "[!] No subdomains found in Shodan response." + Style.RESET_ALL)
         else:
             print(Fore.RED + f"[!] Shodan API error: {response.status_code}" + Style.RESET_ALL)
     except Exception as e:
