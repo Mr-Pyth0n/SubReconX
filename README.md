@@ -15,3 +15,7 @@ SubReconX is a subdomain enumeration and reconnaissance tool.
 
 3. Run the script
    python subreconx.py | sudo python subreconx.py
+
+## Contributing
+Contributions are welcome! Feel free to fork the repository and submit pull requests.
+
