@@ -13,7 +13,7 @@ init(autoreset=True)
 VIRUSTOTAL_API_KEY = "your_virustotal_api_key"
 SECURITYTRAILS_API_KEY = "your_securitytrails_api_key"
 SHODAN_API_KEY = "your_shodan_api_key"
-CERTSPOTTER_API_KEY = "your_certs"
+CERTSPOTTER_API_KEY = "your_certspotter_api_key"
 
 # Tools to check
 TOOLS = {
