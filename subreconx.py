@@ -18,9 +18,9 @@ CERTSPOTTER_API_KEY = "your_certspotter_api_key"
 # Tools to check
 TOOLS = {
     "amass": "apt-get install amass -y",
-    "subfinder": "apt-get install subfinder -y",
+    "subfinder": "go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest",
     "assetfinder": "go install github.com/tomnomnom/assetfinder@latest",
-    "subzy": "go install github.com/LukaSikic/subzy@latest"
+    "subzy": "go install -v github.com/PentestPad/subzy@latest"
 }
 
 # Banner using pyfiglet
